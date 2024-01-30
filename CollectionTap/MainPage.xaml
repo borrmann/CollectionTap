@@ -6,23 +6,24 @@
              x:Name="Page"
              x:DataType="local:MyPageViewModel">
 
-    <ContentPage.Resources>
+    <CollectionView ItemSizingStrategy="MeasureFirstItem"
+                    x:Name="ProjectsListView"
+                    ItemsSource="{Binding Projects}"
+                    VerticalScrollBarVisibility="Never"
+                    Margin="10,0">
 
-        <ResourceDictionary>
-            <DataTemplate x:Key="TypeATemplate"
-                          x:DataType="local:ProjectDto">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="local:ProjectDto">
 
-                <Border Background="AntiqueWhite">
-
+                <Border Background="Beige">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Path=BindingContext.OpenDetailsCommand, Source={x:Reference Page}}"
                                               CommandParameter="{Binding}" />
                     </Border.GestureRecognizers>
                     <Grid  RowDefinitions="24*,22*,24*"
                            InputTransparent="True">
-
-                        <Label Text="TYPE A"
-                               TextColor="AliceBlue" />
+                        <Label Text="MY TEMPLATE"
+                               TextColor="Red" />
                         <Label Text="{Binding Id}"
                                Grid.Row="1" />
                         <Label Text="{Binding Name}"
@@ -31,42 +32,7 @@
                     </Grid>
                 </Border>
             </DataTemplate>
-
-            <DataTemplate x:Key="TypeBTemplate"
-                          x:DataType="local:ProjectDto">
-
-                <Border Background="Beige">
-                    <Border.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Path=BindingContext.OpenDetailsCommand, Source={x:Reference Page}}"
-                                              CommandParameter="{Binding}" />
-                    </Border.GestureRecognizers>
-                    <Grid  RowDefinitions="24*,22*,24*" InputTransparent="True">
-
-
-                        <Label Text="TYPE B"
-                               TextColor="Red" />
-                        <Label Text="{Binding Id}"
-                               Grid.Row="1" />
-                        <Label Text="{Binding Name}"
-                               Grid.Row="2" />
-
-                        </Grid>
-                </Border>
-            </DataTemplate>
-
-            <local:ProjectTemplateSelector x:Key="MyTemplateSelector"
-                                           TypeA="{StaticResource TypeATemplate}"
-                                           TypeB="{StaticResource TypeBTemplate}" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
-    <CollectionView ItemSizingStrategy="MeasureFirstItem"
-                    x:Name="ProjectsListView"
-                    ItemsSource="{Binding Projects}"
-                    VerticalScrollBarVisibility="Never"
-                    ItemTemplate="{StaticResource MyTemplateSelector}"
-                    Margin="10,0">
-
+        </CollectionView.ItemTemplate>
         <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Vertical"
                                ItemSpacing="10" />
