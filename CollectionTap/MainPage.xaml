@@ -6,33 +6,39 @@
              x:Name="Page"
              x:DataType="local:MyPageViewModel">
 
-    <CollectionView ItemSizingStrategy="MeasureFirstItem"
-                    x:Name="ProjectsListView"
-                    ItemsSource="{Binding Projects}"
-                    VerticalScrollBarVisibility="Never"
-                    Margin="10,0">
-
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="local:ProjectDto">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="TypeBTemplate"
+                          x:DataType="local:ProjectDto">
 
                 <Border Background="Beige">
                     <Border.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Path=BindingContext.OpenDetailsCommand, Source={x:Reference Page}}"
                                               CommandParameter="{Binding}" />
                     </Border.GestureRecognizers>
-                    <Grid  RowDefinitions="24*,22*,24*"
-                           InputTransparent="True">
-                        <Label Text="MY TEMPLATE"
+                    <Grid  RowDefinitions="24*,22*,24*" InputTransparent="True">
+
+
+                        <Label Text="TYPE B"
                                TextColor="Red" />
                         <Label Text="{Binding Id}"
                                Grid.Row="1" />
                         <Label Text="{Binding Name}"
                                Grid.Row="2" />
 
-                    </Grid>
+                        </Grid>
                 </Border>
             </DataTemplate>
-        </CollectionView.ItemTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <CollectionView ItemSizingStrategy="MeasureFirstItem"
+                    x:Name="ProjectsListView"
+                    ItemsSource="{Binding Projects}"
+                    VerticalScrollBarVisibility="Never"
+                    ItemTemplate="{StaticResource TypeBTemplate}"
+                    Margin="10,0">
+
         <CollectionView.ItemsLayout>
             <LinearItemsLayout Orientation="Vertical"
                                ItemSpacing="10" />
